@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CipherChat — Encrypted Chat</title>
+  <link rel="stylesheet" href="src/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- LANDING SCREEN -->
+  <div id="screen-landing" class="screen active">
+    <div class="landing-bg"></div>
+    <div class="landing-content">
+      <div class="logo">
+        <span class="logo-icon">🔐</span>
+        <h1>CipherChat</h1>
+        <p class="tagline">End-to-end encrypted. No servers. No logs. Just you and your room.</p>
+      </div>
+      <div class="card">
+        <div class="input-group">
+          <label for="input-username">Your name</label>
+          <input id="input-username" type="text" placeholder="Enter a username..." maxlength="24" autocomplete="off"/>
+        </div>
+        <div class="input-group">
+          <label for="input-room">Room code</label>
+          <input id="input-room" type="text" placeholder="Enter or create a room code..." maxlength="32" autocomplete="off"/>
+        </div>
+        <p class="hint">Share the same room code with anyone you want to chat with. The code is also the encryption key.</p>
+        <div class="btn-row">
+          <button id="btn-join" class="btn btn-primary">Join Room →</button>
+          <button id="btn-random-room" class="btn btn-ghost">Generate Code</button>
+        </div>
+        <div id="landing-error" class="error-msg hidden"></div>
+      </div>
+      <p class="footer-note">Open source · AES-256-GCM encryption · No account needed</p>
+    </div>
+  </div>
+
+  <!-- CHAT SCREEN -->
+  <div id="screen-chat" class="screen">
+    <div class="chat-sidebar">
+      <div class="sidebar-header">
+        <span class="logo-sm">🔐 CipherChat</span>
+      </div>
+      <div class="room-info">
+        <div class="room-label">ROOM</div>
+        <div id="display-room" class="room-code"></div>
+        <button id="btn-copy-room" class="btn btn-tiny" title="Copy room code">Copy</button>
+      </div>
+      <div class="user-info">
+        <div class="room-label">YOU</div>
+        <div id="display-username" class="username-display"></div>
+      </div>
+      <div class="online-users">
+        <div class="room-label">ONLINE</div>
+        <div id="users-list"></div>
+      </div>
+      <div class="sidebar-footer">
+        <button id="btn-leave" class="btn btn-danger-ghost">Leave Room</button>
+      </div>
+    </div>
+
+    <div class="chat-main">
+      <div class="chat-topbar">
+        <div class="topbar-left">
+          <span id="topbar-room" class="topbar-room"></span>
+          <span class="enc-badge">🔒 Encrypted</span>
+        </div>
+        <div id="connection-status" class="conn-status connecting">Connecting...</div>
+      </div>
+
+      <div id="messages" class="messages-area">
+        <div class="system-msg welcome-msg">
+          <span>Welcome to CipherChat. All messages are encrypted with AES-256-GCM using your room code as the key. Messages are never stored.</span>
+        </div>
+      </div>
+
+      <div class="chat-input-bar">
+        <input id="input-message" type="text" placeholder="Type a message..." autocomplete="off" maxlength="2000"/>
+        <button id="btn-send" class="btn btn-send">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="src/crypto.js"></script>
+  <script src="src/chat.js"></script>
+</body>
+</html>
